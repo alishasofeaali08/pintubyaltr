@@ -1,0 +1,296 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color: #333;
+    --background-color: #cfcfbc;
+    --accent-color: #77775f;
+    --card-background: rgba(255, 255, 255, 0.65);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 30px 0;
+    background-color: var(--background-color);
+}
+
+/* Main container */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 40px 50px;
+
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+}
+
+/* Page heading */
+
+.page-heading {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 45px;
+}
+
+.page-heading h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.page-heading h3 {
+    font-size: 17px;
+    color: var(--accent-color);
+    margin-bottom: 18px;
+}
+
+.page-heading p {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Section headings */
+
+.user-section,
+.steps-section {
+    margin-bottom: 45px;
+}
+
+.user-section h2,
+.steps-section h2 {
+    text-align: center;
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+
+.section-description {
+    text-align: center;
+    font-size: 14px;
+    margin-top: -12px;
+    margin-bottom: 25px;
+    color: #666;
+}
+
+/* User cards */
+
+.user-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.user-card {
+    padding: 25px 20px;
+    text-align: center;
+
+    background: var(--card-background);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 18px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
+}
+
+.user-icon {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.user-card h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.user-card p {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* Steps section */
+
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.step-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+
+    padding: 22px 25px;
+
+    background: var(--card-background);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateX(5px);
+}
+
+.step-number {
+    min-width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--accent-color);
+    color: white;
+
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.step-content h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.step-content p {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* Closing section */
+
+.closing-section {
+    text-align: center;
+    padding: 30px 25px;
+
+    background: rgba(119, 119, 95, 0.12);
+    border-radius: 18px;
+}
+
+.closing-section h2 {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.closing-section p {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 92%;
+        padding: 30px 25px;
+        margin: 25px auto;
+    }
+
+    .page-heading h1 {
+        font-size: 27px;
+    }
+
+    .user-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .user-card {
+        padding: 20px;
+    }
+
+    .step-card {
+        padding: 20px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 15px 0;
+    }
+
+    .container {
+        width: 94%;
+        padding: 25px 18px;
+        margin: 20px auto;
+        border-radius: 18px;
+    }
+
+    .page-heading {
+        margin-bottom: 30px;
+    }
+
+    .page-heading h1 {
+        font-size: 24px;
+    }
+
+    .page-heading h3 {
+        font-size: 15px;
+    }
+
+    .page-heading p {
+        font-size: 13px;
+    }
+
+    .user-section h2,
+    .steps-section h2 {
+        font-size: 20px;
+    }
+
+    .step-card {
+        gap: 13px;
+        padding: 16px;
+    }
+
+    .step-number {
+        min-width: 42px;
+        height: 42px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+
+    .step-content h3 {
+        font-size: 14px;
+    }
+
+    .step-content p {
+        font-size: 12px;
+    }
+
+    .closing-section {
+        padding: 25px 18px;
+    }
+
+    .closing-section h2 {
+        font-size: 18px;
+    }
+}

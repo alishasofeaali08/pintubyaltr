@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PINTU Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="icon" type="image/png" href="../images/logo.png">
+</head>
+
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<div class="container">
+    <h1>Dashboard 🏆</h1>
+    <h3>Welcome Mr/Ms <span id="username"></span>!</h3>
+</div>
+
+<!-- PROFILE SECTION -->
+
+<div class="dashboard-grid">
+
+    <section class="content-card profile-card">
+
+        <div class="section-heading">
+            <div>
+                <h2>My Profile</h2>
+                <p>Manage your personal information.</p>
+            </div>
+
+            <button class="edit-btn" id="editProfileBtn">
+                Edit Profile
+            </button>
+        </div>
+
+        <div class="profile-info">
+
+            <div class="profile-avatar" id="profileAvatar">U</div>
+
+            <div class="profile-details">
+                <h3 id="profileName">User Name</h3>
+                <p id="profileEmail">user@email.com</p>
+                <span class="role-badge" id="profileRole">Tenant</span>
+            </div>
+
+        </div>
+
+        <div class="detail-list">
+
+            <div>
+                <span>Full Name</span>
+                <strong id="detailName">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Email Address</span>
+                <strong id="detailEmail">Not provided</strong>
+            </div>
+
+            <div>
+                <span>Phone Number</span>
+                <strong id="detailPhone">Not provided</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- MEMBERSHIP TIER SECTION -->
+
+<section class="content-card tier-section">
+
+    <div class="section-heading">
+        <div>
+            <h2>My Membership</h2>
+            <p>Grow your visibility, promote your property and unlock exclusive PINTU opportunities.</p>
+        </div>
+    </div>
+
+    <!-- CURRENT MEMBERSHIP -->
+
+    <div class="current-tier">
+
+        <div>
+            <span>YOUR CURRENT TIER</span>
+            <h2 id="currentTier">Bronze</h2>
+            <p id="tierDescription">
+                Enjoy your basic PINTU membership.
+            </p>
+        </div>
+
+        <div class="tier-points">
+            <span>Your Points</span>
+            <h2 id="tierPoints">0</h2>
+        </div>
+
+    </div>
+
+    <!-- MEMBERSHIP PROGRESS -->
+
+    <div class="tier-progress">
+
+        <div class="progress-heading">
+            <span>Progress to next tier</span>
+            <strong id="tierProgressText">0 / 200 points</strong>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="tierProgressFill"></div>
+        </div>
+
+    </div>
+
+
+    <!-- MEMBERSHIP BENEFITS -->
+
+    <div class="tier-grid">
+
+        <!-- BRONZE -->
+
+        <div class="tier-card bronze">
+
+            <h3>🥉 Bronze</h3>
+            <h2>FREE</h2>
+            <p>0–199 points</p>
+
+            <ul>
+                <li>Basic property listing visibility</li>
+                <li>Access to PINTU community</li>
+                <li>Standard community post visibility</li>
+                <li>Access to public property events</li>
+                <li>Basic property recommendations</li>
+            </ul>
+
+            <button disabled>
+                Current / Free Tier
+            </button>
+
+        </div>
+
+
+        <!-- SILVER -->
+
+        <div class="tier-card silver">
+
+            <h3>🥈 Silver</h3>
+            <h2>RM19.90</h2>
+            <p>200–499 points</p>
+
+            <ul>
+                <li>All Bronze benefits</li>
+                <li>Priority visibility for community posts</li>
+                <li>One promotional pinned post opportunity</li>
+                <li>Increased property listing exposure</li>
+                <li>Priority access to selected events</li>
+                <li>AI-powered property recommendations</li>
+            </ul>
+
+            <button class="upgrade-tier" data-tier="Silver">
+                Upgrade Membership
+            </button>
+
+        </div>
+
+
+        <!-- GOLD -->
+
+        <div class="tier-card gold">
+
+            <h3>🥇 Gold</h3>
+            <h2>RM39.90</h2>
+            <p>500–999 points</p>
+
+            <ul>
+                <li>All Silver benefits</li>
+                <li>More frequent pinned community post opportunities</li>
+                <li>Featured property advertisements</li>
+                <li>Enhanced visibility across community pages</li>
+                <li>Priority participation in PINTU events</li>
+                <li>AI-driven promotional recommendations</li>
+                <li>Targeted exposure to relevant audiences</li>
+            </ul>
+
+            <button class="upgrade-tier" data-tier="Gold">
+                Upgrade Membership
+            </button>
+
+        </div>
+
+
+        <!-- PLATINUM -->
+
+        <div class="tier-card platinum">
+
+            <h3>💎 Platinum</h3>
+            <h2>RM69.90</h2>
+            <p>1,000+ points</p>
+
+            <ul>
+                <li>All Gold benefits</li>
+                <li>Premium pinned community post opportunities</li>
+                <li>Featured advertisements across PINTU</li>
+                <li>Maximum eligible property listing exposure</li>
+                <li>Priority participation and promotional opportunities at events</li>
+                <li>Advanced AI-powered advertising recommendations</li>
+                <li>Personalised promotional audience targeting</li>
+                <li>Premium brand and property exposure</li>
+            </ul>
+
+            <button class="upgrade-tier" data-tier="Platinum">
+                Upgrade Membership
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EDIT PROFILE MODAL -->
+
+<div class="modal-overlay" id="profileModal">
+
+    <div class="modal">
+
+        <div class="modal-heading">
+
+            <div>
+                <h2>Edit Profile</h2>
+                <p>Update your personal information.</p>
+            </div>
+
+            <button class="close-btn" id="closeModal">
+                &times;
+            </button>
+
+        </div>
+
+        <form id="profileForm">
+
+            <label for="editName">Full Name</label>
+            <input type="text" id="editName" required>
+
+            <label for="editEmail">Email Address</label>
+            <input type="email" id="editEmail" required>
+
+            <label for="editPhone">Phone Number</label>
+            <input type="tel" id="editPhone" placeholder="e.g. 0123456789">
+
+            <label for="editRole">Account Role</label>
+            <select id="editRole">
+                <option value="Tenant">Tenant</option>
+                <option value="Landlord">Landlord</option>
+                <option value="Property Manager">Property Manager</option>
+            </select>
+
+            <div class="modal-actions">
+
+                <button type="button" class="cancel-btn" id="cancelEdit">
+                    Cancel
+                </button>
+
+                <button type="submit" class="save-btn">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../js/storage.js"></script>
+<script src="../js/navbar.js"></script>
+<script src="../js/dashboard.js"></script>
+
+</body>
+</html>

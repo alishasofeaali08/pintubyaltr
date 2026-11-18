@@ -1,0 +1,204 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color: #333;
+    --background-color: #cfcfbc;
+    --accent-color: #77775f;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 40px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--background-color);
+}
+
+/* Main container */
+.container {
+    width: 90%;
+    max-width: 1400px;
+    padding: 40px 50px;
+    margin: 50px 25px;
+
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+}
+
+/* Section spacing */
+.about-section,
+.founders-section {
+    width: 100%;
+    margin-bottom: 45px;
+}
+
+/* Headings */
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+h3 {
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+}
+
+/* Content layout */
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 40px;
+
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+/* Image container */
+.image {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image img {
+    display: block;
+    width: 80%;
+    max-width: 350px;
+    height: auto;
+
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+/* Text container */
+.text {
+    flex: 1.2;
+    min-width: 0;
+    max-width: 650px;
+
+    font-size: 14px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.text p {
+    margin-bottom: 15px;
+}
+
+.text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive design - tablets and mobile */
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px 0;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 94%;
+        padding: 25px 20px;
+    }
+
+    .about-section,
+    .founders-section {
+        margin-bottom: 35px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h3 {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .image {
+        width: 100%;
+    }
+
+    .image img {
+        width: 75%;
+        max-width: 280px;
+    }
+
+    .text {
+        width: 100%;
+        max-width: 100%;
+        font-size: 13px;
+        text-align: left;
+    }
+}
+
+/* Smaller mobile screens */
+@media (max-width: 480px) {
+
+    .container {
+        width: 95%;
+        padding: 20px 15px;
+        border-radius: 18px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    .image img {
+        max-width: 230px;
+    }
+
+    .text {
+        font-size: 12px;
+        line-height: 1.8;
+    }
+
+}
+

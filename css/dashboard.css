@@ -1,0 +1,851 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* =========================================
+   1. GLOBAL STYLING
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #cfcfbc;
+    --primary: #77775f;
+    --primary-dark: #5f5f4b;
+    --text: #333333;
+    --muted: #777777;
+    --white: #ffffff;
+    --card: rgba(255, 255, 255, 0.55);
+    --border: rgba(119, 119, 95, 0.2);
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--background);
+    padding-bottom: 50px;
+}
+
+button,
+input,
+select {
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================================
+   2. PAGE CONTAINER
+========================================= */
+
+.container {
+    width: 90%;
+    max-width: 1250px;
+    margin: 45px auto 25px;
+}
+
+.container h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.container h3 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #666;
+}
+
+.container span {
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+/* =========================================
+   3. STATISTICS CARDS
+========================================= */
+
+.stats-grid {
+    width: 90%;
+    max-width: 1250px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.stat-card {
+    position: relative;
+    min-height: 160px;
+    padding: 25px;
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+}
+
+.stat-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(119, 119, 95, 0.13);
+    border-radius: 12px;
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.stat-card p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.stat-card h2 {
+    font-size: 29px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 4px;
+}
+
+.stat-card span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.stat-card .role-value {
+    font-size: 23px;
+}
+
+/* =========================================
+   4. DASHBOARD GRID
+========================================= */
+
+.dashboard-grid {
+    width: 90%;
+    max-width: 1250px;
+    margin: 25px auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+}
+
+.content-card {
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* =========================================
+   5. SECTION HEADINGS
+========================================= */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.section-heading p {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* =========================================
+   6. PROFILE CARD
+========================================= */
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+}
+
+.profile-avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.profile-details h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.profile-details p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(119, 119, 95, 0.15);
+    color: var(--primary-dark);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Profile Details */
+
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 10px;
+}
+
+.detail-list > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-list > div:last-child {
+    border-bottom: none;
+}
+
+.detail-list span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.detail-list strong {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+/* Edit Profile Button */
+
+.edit-btn {
+    padding: 9px 17px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    transition: 0.25s ease;
+}
+
+.edit-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================================
+   7. MEMBERSHIP SECTION
+========================================= */
+
+.tier-section {
+    width: 90%;
+    max-width: 1250px;
+    margin: 30px auto;
+    padding: 30px;
+}
+
+.tier-section .section-heading {
+    margin-bottom: 25px;
+}
+
+.tier-section .section-heading h2 {
+    font-size: 23px;
+}
+
+.tier-section .section-heading p {
+    font-size: 12px;
+}
+
+/* Current Membership */
+
+.current-tier {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background: linear-gradient(
+        135deg,
+        rgba(119, 119, 95, 0.18),
+        rgba(255, 255, 255, 0.65)
+    );
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.current-tier span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--primary-dark);
+}
+
+.current-tier h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 7px 0;
+}
+
+.current-tier p {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.tier-points {
+    text-align: right;
+}
+
+.tier-points h2 {
+    font-size: 28px;
+    color: var(--primary-dark);
+}
+
+/* Progress Bar */
+
+.tier-progress {
+    margin-bottom: 30px;
+}
+
+.progress-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.progress-heading span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.progress-heading strong {
+    font-size: 12px;
+    color: var(--primary-dark);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 11px;
+    background: rgba(119, 119, 95, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #a5a58b, #68684e);
+    border-radius: 20px;
+    transition: width 0.5s ease;
+}
+
+/* =========================================
+   8. MEMBERSHIP TIER CARDS
+========================================= */
+
+.tier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.tier-card {
+    display: flex;
+    flex-direction: column;
+    padding: 23px 18px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--primary);
+    border-radius: 15px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tier-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.09);
+}
+
+.tier-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.tier-card h2 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+}
+
+.tier-card > p {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+.tier-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px;
+    flex-grow: 1;
+}
+
+.tier-card li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 11px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.tier-card li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* Individual Tier Colours */
+
+.bronze {
+    border-top-color: #ad805e;
+}
+
+.bronze h3 {
+    color: #956c4e;
+}
+
+.silver {
+    border-top-color: #9da3a7;
+}
+
+.silver h3 {
+    color: #70787d;
+}
+
+.gold {
+    border-top-color: #c5a44c;
+}
+
+.gold h3 {
+    color: #a18435;
+}
+
+.platinum {
+    border-top-color: #77775f;
+}
+
+.platinum h3 {
+    color: #5f5f4b;
+}
+
+/* Upgrade Buttons */
+
+.tier-card button {
+    width: 100%;
+    padding: 11px 10px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.tier-card button:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.tier-card button:disabled {
+    background: #c4c4b7;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   9. PROFILE EDIT MODAL
+========================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    background: #f5f5ed;
+    border-radius: 18px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+    animation: modalAppear 0.25s ease;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.modal-heading h2 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.modal-heading p {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(119, 119, 95, 0.12);
+    color: var(--text);
+    font-size: 23px;
+    line-height: 1;
+    transition: 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(119, 119, 95, 0.25);
+}
+
+/* Modal Form */
+
+#profileForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#profileForm label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: #555;
+}
+
+#profileForm input,
+#profileForm select {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(119, 119, 95, 0.25);
+    border-radius: 8px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text);
+    font-size: 12px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+#profileForm input:focus,
+#profileForm select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(119, 119, 95, 0.12);
+}
+
+/* Modal Buttons */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.cancel-btn {
+    background: #e3e3d8;
+    color: #555;
+}
+
+.cancel-btn:hover {
+    background: #d4d4c7;
+}
+
+.save-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.save-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================================
+   10. RESPONSIVE DESIGN - TABLET
+========================================= */
+
+@media screen and (max-width: 1000px) {
+
+    .tier-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .container,
+    .stats-grid,
+    .dashboard-grid,
+    .tier-section {
+        width: 92%;
+    }
+
+}
+
+/* =========================================
+   11. RESPONSIVE DESIGN - MOBILE
+========================================= */
+
+@media screen and (max-width: 600px) {
+
+    .container {
+        margin-top: 30px;
+    }
+
+    .container h1 {
+        font-size: 24px;
+    }
+
+    .container h3 {
+        font-size: 13px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .stat-card {
+        min-height: 135px;
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        margin-top: 20px;
+    }
+
+    .content-card,
+    .tier-section {
+        padding: 20px 16px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+    }
+
+    .section-heading h2 {
+        font-size: 18px;
+    }
+
+    .edit-btn {
+        padding: 8px 12px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .profile-avatar {
+        width: 58px;
+        height: 58px;
+        font-size: 23px;
+    }
+
+    .profile-details h3 {
+        font-size: 14px;
+    }
+
+    .detail-list > div {
+        align-items: flex-start;
+    }
+
+    .detail-list span,
+    .detail-list strong {
+        font-size: 10px;
+    }
+
+    .current-tier {
+        padding: 18px;
+        align-items: flex-start;
+    }
+
+    .current-tier h2 {
+        font-size: 23px;
+    }
+
+    .current-tier p {
+        max-width: 190px;
+        line-height: 1.6;
+    }
+
+    .tier-points h2 {
+        font-size: 22px;
+    }
+
+    .progress-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tier-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .tier-card {
+        padding: 22px;
+    }
+
+    .tier-card h3 {
+        font-size: 18px;
+    }
+
+    .tier-card h2 {
+        font-size: 23px;
+    }
+
+    .tier-card li {
+        font-size: 12px;
+    }
+
+    .modal {
+        padding: 22px 18px;
+    }
+
+    .modal-heading h2 {
+        font-size: 18px;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        width: 100%;
+    }
+
+}
+
+/* =========================================
+   12. SMALL MOBILE DEVICES
+========================================= */
+
+@media screen and (max-width: 380px) {
+
+    .container,
+    .stats-grid,
+    .dashboard-grid,
+    .tier-section {
+        width: 94%;
+    }
+
+    .current-tier {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .tier-points {
+        text-align: left;
+    }
+
+    .profile-info {
+        align-items: flex-start;
+    }
+
+}

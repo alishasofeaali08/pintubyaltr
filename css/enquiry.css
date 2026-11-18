@@ -1,0 +1,230 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color: #333;
+    --background-color: #cfcfbc;
+    --accent-color: #77775f;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    min-height: 100vh;
+    padding: 30px 0;
+    line-height: 1.7;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 40px 50px;
+
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+}
+
+/* Heading */
+
+.page-heading {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 35px;
+}
+
+.page-heading h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.page-heading h3 {
+    font-size: 17px;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.page-heading p {
+    font-size: 14px;
+}
+
+/* Enquiry layout */
+
+.enquiry-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* Contact information */
+
+.contact-info {
+    padding: 25px;
+    background: rgba(119, 119, 95, 0.12);
+    border-radius: 18px;
+}
+
+.contact-info h2,
+.enquiry-form h2 {
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.contact-info > p {
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-item span {
+    font-size: 25px;
+}
+
+.contact-item h3 {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.contact-item p {
+    font-size: 12px;
+}
+
+/* Form */
+
+.enquiry-form {
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 18px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: var(--text-color);
+
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #d5d5c9;
+    border-radius: 10px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(119, 119, 95, 0.12);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.enquiry-form button {
+    width: 100%;
+    padding: 13px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    color: white;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.enquiry-form button:hover {
+    background: #62624e;
+    transform: translateY(-2px);
+}
+
+.form-message {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--accent-color);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .container {
+        width: 92%;
+        padding: 30px 25px;
+    }
+
+    .enquiry-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading h1 {
+        font-size: 27px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 94%;
+        padding: 25px 18px;
+    }
+
+    .page-heading h1 {
+        font-size: 24px;
+    }
+
+    .page-heading p {
+        font-size: 12px;
+    }
+
+    .contact-info,
+    .enquiry-form {
+        padding: 20px;
+    }
+
+    .contact-info h2,
+    .enquiry-form h2 {
+        font-size: 19px;
+    }
+}
