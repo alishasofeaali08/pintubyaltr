@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PINTU Admin Dashboard</title>
+
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="icon" type="image/png" href="../images/logo.png">
+</head>
+
+<body class="admin-dashboard">
+
+<!-- SIDEBAR -->
+<aside class="admin-sidebar">
+
+    <div class="sidebar-logo">
+        <img src="../images/logo.png" alt="PINTU Logo">
+        <h2>PINTU</h2>
+    </div>
+
+    <div class="sidebar-menu">
+        <p class="menu-label">MAIN MENU</p>
+
+        <a href="#overview" class="menu-item active">
+            <span>📊</span> Overview
+        </a>
+
+        <a href="#users" class="menu-item">
+            <span>👥</span> User Management
+        </a>
+
+        <a href="#users" class="menu-item">
+            <span>🏠</span> Property Users
+        </a>
+    </div>
+
+    <div class="sidebar-bottom">
+        <a href="#" class="menu-item" id="adminLogoutBtn">
+            <span>🚪</span> Logout
+        </a>
+    </div>
+
+</aside>
+
+
+<!-- MAIN AREA -->
+<main class="admin-main">
+
+    <!-- TOP HEADER -->
+    <header class="admin-topbar">
+
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Manage your PINTU platform and users.</p>
+        </div>
+
+        <div class="admin-profile">
+            <div class="admin-avatar">A</div>
+
+            <div>
+                <span>Administrator</span>
+                <strong id="adminName">Admin</strong>
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="admin-content">
+
+        <!-- OVERVIEW -->
+        <section class="admin-section" id="overview">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Dashboard Overview</h2>
+                    <p>Here's an overview of your registered users.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <h3>Total Users</h3>
+                    <div class="stat-number" id="totalUsers">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔐</div>
+                    <h3>Administrators</h3>
+                    <div class="stat-number" id="adminCount">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔑</div>
+                    <h3>Tenants</h3>
+                    <div class="stat-number" id="tenantCount">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏡</div>
+                    <h3>Landlords</h3>
+                    <div class="stat-number" id="landlordCount">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏢</div>
+                    <h3>Property Managers</h3>
+                    <div class="stat-number" id="propertyManagerCount">0</div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- USER MANAGEMENT -->
+        <section class="admin-section" id="users">
+
+            <div class="section-heading">
+                <div>
+                    <h2>User Management</h2>
+                    <p>View, search, edit and manage registered accounts.</p>
+                </div>
+            </div>
+
+
+            <!-- SEARCH AND FILTER -->
+            <div class="user-toolbar">
+
+                <div class="search-box">
+                    <span>🔍</span>
+                    <input
+                            type="text"
+                            id="userSearch"
+                            placeholder="Search name, email or phone..."
+                    >
+                </div>
+
+                <select id="roleFilter">
+                    <option value="All">All Roles</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Tenant">Tenant</option>
+                    <option value="Landlord">Landlord</option>
+                    <option value="Property Manager">Property Manager</option>
+                </select>
+
+            </div>
+
+
+            <!-- USER TABLE -->
+            <div class="table-container">
+
+                <table class="user-table">
+
+                    <thead>
+                    <tr>
+                        <th>USER</th>
+                        <th>EMAIL ADDRESS</th>
+                        <th>PHONE NUMBER</th>
+                        <th>ROLE</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="usersTableBody">
+                    <!-- Loaded dynamically -->
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="table-footer">
+                <p id="userResultCount">Registered users</p>
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- EDIT USER MODAL -->
+<div class="modal-overlay" id="editUserModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <div>
+                <h2>Edit User Details</h2>
+                <p>Update the selected user's account information.</p>
+            </div>
+
+            <button type="button" class="close-modal"
+                    id="closeEditModal">&times;</button>
+        </div>
+
+        <form id="editUserForm">
+
+            <input type="hidden" id="editUserId">
+
+            <label for="editName">Full Name</label>
+            <input type="text" id="editName" required>
+
+            <label for="editEmail">Email Address</label>
+            <input type="email" id="editEmail" required>
+
+            <label for="editPhone">Phone Number</label>
+            <input type="tel" id="editPhone"
+                   placeholder="e.g. 0123456789">
+
+            <label for="editRole">Account Role</label>
+            <select id="editRole">
+                <option value="Tenant">Tenant</option>
+                <option value="Landlord">Landlord</option>
+                <option value="Property Manager">Property Manager</option>
+                <option value="Admin">Admin</option>
+            </select>
+
+            <div class="modal-actions">
+
+                <button type="button" class="cancel-btn" id="cancelEdit">
+                    Cancel
+                </button>
+
+                <button type="submit" class="save-btn">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="../js/storage.js"></script>
+<script src="../js/admin.js"></script>
+
+</body>
+</html>

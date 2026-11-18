@@ -93,6 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 role: "Tenant"
             };
 
+            // Check if this is the first user - make them Admin
+            if (users.length === 0) {
+                newUser.role = "Admin";
+            }
+
             users.push(newUser);
             saveData("pintuUsers", users);
 
@@ -102,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 name: username,
                 email: email,
                 phone: phone,
-                role: "Tenant"
+                role: newUser.role
             };
 
             saveData("pintuProfiles", profiles);
