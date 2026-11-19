@@ -1,0 +1,33 @@
+import PageHeading from '../components/PageHeading'
+
+export default function AboutUs() {
+  return (
+    <div className="container wide">
+      <PageHeading title="About Us 📜" subtitle="Who Are the Founders of PINTU?" />
+      <section className="content-card about-section">
+        <div className="content">
+          <div className="image"><img src="/images/logo.png" alt="PINTU Logo" /></div>
+          <div className="text">
+            <p>PINTU is a student-led initiative developed by a team of passionate young innovators who believe property management can be simpler, smarter, and more accessible.</p>
+            <p>We recognise that managing rental properties involves multiple responsibilities, from organising property information and tracking rental payments to handling maintenance requests and maintaining communication between landlords, tenants, and property managers.</p>
+            <p>To address these challenges, PINTU brings essential property management functions together in one accessible platform. By centralising rental management, payment tracking, property information, and maintenance requests, we aim to create a more organised and convenient rental experience.</p>
+            <p>As a student-led team, PINTU reflects our commitment to turning ideas into practical solutions through creativity, collaboration, and technology. Our goal is to make property management more convenient, connected, and accessible for everyone.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="content-card founders-section">
+        <PageHeading title="Founders' Introduction" subtitle="Alisha Sofea binti Ali" />
+        <div className="content">
+          <div className="image"><img src="/images/alisha.png" alt="Alisha Sofea binti Ali" /></div>
+          <div className="text">
+            <p>Hello, my name is Alisha. Throughout my studies, I have gained valuable working experience through part-time jobs and side hustles, strengthening my adaptability, communication, and problem-solving skills.</p>
+            <p>During my university journey, I served as the Director for CodeNection 2026 and Tech Career Days 2026 at Multimedia University, Cyberjaya. I led event planning and execution, coordinated committees, managed stakeholder engagements, and collaborated with industry partners.</p>
+            <p>These experiences strengthened my leadership, teamwork, and project management abilities while exposing me to the importance of connecting technology, industry, and innovation.</p>
+            <p>I am eager to further develop my skills and contribute to initiatives that transform ideas into impactful solutions.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
