@@ -1,9 +1,11 @@
-# Render blueprint: build the React app and run the Express API in one container.
+# Render blueprint: build the React app and run the Express API on one Node service.
 # Set MONGODB_URI to a MongoDB Atlas connection string in the Render dashboard.
 services:
   - type: web
     name: pintu
-    runtime: docker
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV

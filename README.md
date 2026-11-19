@@ -14,13 +14,9 @@ All persistent data — accounts, listings, posts, comments, likes, chats, ratin
 
 ## Run locally
 
-You need Node 22+ and a MongoDB server. If you don't have one installed:
+You need Node 22+ and a MongoDB server. You can run MongoDB locally or point `MONGODB_URI` at a MongoDB Atlas cluster.
 
-```bash
-docker run -d --name pintu-mongo -p 27017:27017 mongo:7
-```
-
-Then copy the example env file and install dependencies:
+Copy the example env file, fill in `MONGODB_URI` (and `JWT_SECRET`), then install dependencies:
 
 ```bash
 cp .env.example .env.local
@@ -62,8 +58,7 @@ The server reads `.env.local` and `.env` via dotenv; Vite reads the same files b
 
 Ready-made options:
 
-- **Docker**: `docker build -t pintu . && docker run -p 4000:4000 -e MONGODB_URI=... -e JWT_SECRET=... pintu`
-- **Render**: create a Web Service from `render.yaml` and fill in `MONGODB_URI` / `CORS_ORIGIN` in the dashboard.
+- **Render**: create a Blueprint/Web Service from `render.yaml` (Node runtime) and fill in `MONGODB_URI` / `CORS_ORIGIN` in the dashboard.
 - **Separate frontend hosting**: build with `VITE_API_URL=https://your-api.example.com/api` and set `CORS_ORIGIN=https://your-frontend.example.com` on the API.
 
 ## Pages
