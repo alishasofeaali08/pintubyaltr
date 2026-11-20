@@ -114,7 +114,7 @@ export default function Layout() {
             {user ? (
               <>
                 <NavLink to="/dashboard" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">My Dashboard · Profile &amp; Wallet</NavLink>
-                <NavLink to="/marketplace" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">My Listings</NavLink>
+                <NavLink to="/my-listings" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">My Listings</NavLink>
                 {isAdmin && <NavLink to="/admin" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">Admin Portal</NavLink>}
                 <button type="button" className="popover-item disabled" disabled role="menuitem">Account Settings <span className="popover-badge">Soon</span></button>
                 <button type="button" className="popover-item nav-action" onClick={handleLogout} role="menuitem">Log Out</button>

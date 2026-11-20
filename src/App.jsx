@@ -11,6 +11,7 @@ import FAQ from './pages/FAQ'
 import HowItWorks from './pages/HowItWorks'
 import Login from './pages/Login'
 import Marketplace from './pages/Marketplace'
+import MyListings from './pages/MyListings'
 import OurMission from './pages/OurMission'
 import Signup from './pages/Signup'
 import MaintenanceRequests from './pages/MaintenanceRequests'
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
         <Route path="/marketplace" element={<RequireAuth><Marketplace /></RequireAuth>} />
+        <Route path="/my-listings" element={<RequireAuth><MyListings /></RequireAuth>} />
         <Route path="/maintenance" element={<RequireAuth><MaintenanceRequests /></RequireAuth>} />
         <Route path="/announcements" element={<RequireAuth><Announcements /></RequireAuth>} />
         <Route path="/admin" element={<RequireAuth adminOnly><AdminDashboard /></RequireAuth>} />
