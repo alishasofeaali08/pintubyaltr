@@ -17,7 +17,7 @@ const serviceLinks = [
   { label: 'Property Listings', to: '/marketplace' },
   { label: 'Rental Management' },
   { label: 'Payment Management' },
-  { label: 'Maintenance Requests' },
+  { label: 'Maintenance Requests', to: '/maintenance' },
 ]
 
 export default function Layout() {
@@ -68,7 +68,7 @@ export default function Layout() {
   }
 
   const isHome = location.pathname === '/' || location.pathname === '/community'
-  const isServices = location.pathname === '/marketplace'
+  const isServices = ['/marketplace', '/maintenance'].includes(location.pathname)
   const isProfile = ['/dashboard', '/admin'].includes(location.pathname)
 
   return (
@@ -102,7 +102,8 @@ export default function Layout() {
             <div className="popover-note">
               <BellIcon />
               <strong>Announcements from PINTU</strong>
-              <p>Campaigns and platform updates from our admin team will appear here.</p>
+              <p>Campaigns and platform updates from our admin team.</p>
+              <NavLink to="/announcements" className="popover-item" onClick={() => setActiveMenu(null)}>View Announcements</NavLink>
             </div>
           </div>
         )}
@@ -112,8 +113,7 @@ export default function Layout() {
             <p className="popover-title">{user ? `Hi, ${user.name}` : 'Account'}</p>
             {user ? (
               <>
-                <NavLink to="/dashboard" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">My Profile</NavLink>
-                <NavLink to="/dashboard" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">Dashboard &amp; Wallet</NavLink>
+                <NavLink to="/dashboard" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">My Dashboard · Profile &amp; Wallet</NavLink>
                 <NavLink to="/marketplace" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">My Listings</NavLink>
                 {isAdmin && <NavLink to="/admin" className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">Admin Portal</NavLink>}
                 <button type="button" className="popover-item disabled" disabled role="menuitem">Account Settings <span className="popover-badge">Soon</span></button>

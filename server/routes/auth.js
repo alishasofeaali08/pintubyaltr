@@ -10,6 +10,8 @@ const router = Router()
 router.post('/signup', async (req, res, next) => {
   try {
     const { username, email, phone, password, ic } = req.body || {}
+    const requestedRole = String(req.body?.role || 'Tenant')
+    if (!['Tenant', 'Landlord', 'Property Manager'].includes(requestedRole)) return res.status(400).json({ error: 'Please select a valid account role.' })
     const error = validateSignup({ username, email, phone, password, ic })
     if (error) return res.status(400).json({ error })
 
@@ -24,7 +26,7 @@ router.post('/signup', async (req, res, next) => {
     }
 
     // The first account created in a fresh database becomes the admin.
-    const role = (await User.countDocuments()) === 0 ? 'Admin' : 'Tenant'
+    const role = (await User.countDocuments()) === 0 ? 'Admin' : requestedRole
     const user = await User.create({
       username: name,
       email: cleanEmail,

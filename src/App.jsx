@@ -13,6 +13,8 @@ import Login from './pages/Login'
 import Marketplace from './pages/Marketplace'
 import OurMission from './pages/OurMission'
 import Signup from './pages/Signup'
+import MaintenanceRequests from './pages/MaintenanceRequests'
+import Announcements from './pages/Announcements'
 
 function NotFound() {
   return (
@@ -40,6 +42,8 @@ export default function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
         <Route path="/marketplace" element={<RequireAuth><Marketplace /></RequireAuth>} />
+        <Route path="/maintenance" element={<RequireAuth><MaintenanceRequests /></RequireAuth>} />
+        <Route path="/announcements" element={<RequireAuth><Announcements /></RequireAuth>} />
         <Route path="/admin" element={<RequireAuth adminOnly><AdminDashboard /></RequireAuth>} />
         <Route path="*" element={<NotFound />} />
       </Route>

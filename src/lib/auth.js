@@ -37,6 +37,7 @@ export async function signUp(form) {
     phone: form.phone.trim(),
     password: form.password,
     ic: form.ic.trim(),
+    role: form.role || 'Tenant',
   }, { auth: false })
   return user
 }

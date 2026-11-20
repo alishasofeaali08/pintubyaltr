@@ -19,6 +19,7 @@ import {
 import { useAuth } from '../context/useAuth'
 import { OPEN_COMPOSER_EVENT } from '../lib/events'
 import { addPostComment, createPost, deletePost, getPosts, toggleLikePost } from '../lib/posts'
+import { createStory, getStories } from '../lib/stories'
 
 function readMediaFile(file) {
   return new Promise((resolve, reject) => {
@@ -62,6 +63,9 @@ export default function Community() {
   const location = useLocation()
   const navigate = useNavigate()
   const [posts, setPosts] = useState([])
+  const [stories, setStories] = useState([])
+  const [activeStory, setActiveStory] = useState(null)
+  const [contentType, setContentType] = useState('Post')
   const [loadError, setLoadError] = useState('')
   const [filterUser, setFilterUser] = useState(null)
   const [comments, setComments] = useState({})
@@ -76,8 +80,8 @@ export default function Community() {
 
   useEffect(() => {
     let active = true
-    getPosts()
-      .then((items) => { if (active) setPosts(items) })
+    Promise.all([getPosts(), getStories()])
+      .then(([items, storyItems]) => { if (active) { setPosts(items); setStories(storyItems) } })
       .catch((err) => { if (active) setLoadError(err.message) })
     return () => { active = false }
   }, [])
@@ -89,13 +93,15 @@ export default function Community() {
   }, [])
 
   const storyAuthors = useMemo(() => {
-    const seen = new Map()
-    posts.forEach((post) => {
-      const id = String(post.userId || '')
-      if (id && !seen.has(id)) seen.set(id, { id, name: post.author || 'Member', role: post.role })
+    const grouped = new Map()
+    stories.forEach((story) => {
+      const id = String(story.userId || '')
+      if (!id) return
+      if (!grouped.has(id)) grouped.set(id, { id, name: story.author || 'Member', role: story.role, stories: [] })
+      grouped.get(id).stories.push(story)
     })
-    return [...seen.values()].slice(0, 12)
-  }, [posts])
+    return [...grouped.values()]
+  }, [stories])
 
   const visible = useMemo(
     () => (filterUser ? posts.filter((post) => String(post.userId) === filterUser) : posts),
@@ -121,7 +127,7 @@ export default function Community() {
       if (items.some((item) => item.type === 'video') && items.length > 1) {
         throw new Error('Post one video at a time — videos cannot be mixed with photos.')
       }
-      setMedia((current) => (items[0]?.type === 'video' ? items : [...current, ...items].slice(0, 4)))
+      setMedia((current) => contentType === 'Story' ? items.slice(0, 1) : (items[0]?.type === 'video' ? items : [...current, ...items].slice(0, 4)))
       setComposeError('')
     } catch (err) {
       setComposeError(err.message)
@@ -137,9 +143,14 @@ export default function Community() {
     }
     setPosting(true)
     try {
-      const post = await createPost({ content, media })
-      setPosts((current) => [post, ...current])
-      setFilterUser(null)
+      if (contentType === 'Story') {
+        const story = await createStory({ content, media: media.slice(0, 1) })
+        setStories((current) => [story, ...current])
+      } else {
+        const post = await createPost({ content, media })
+        setPosts((current) => [post, ...current])
+        setFilterUser(null)
+      }
       closeComposer()
     } catch (err) {
       setComposeError(err.message || 'Unable to share your post.')
@@ -195,27 +206,22 @@ export default function Community() {
       {loadError && <p className="form-message error" role="alert">{loadError}</p>}
 
       <section className="stories" aria-label="Community members">
-        <button type="button" className="story" onClick={() => setComposeOpen(true)}>
+        <button type="button" className="story" onClick={() => { setContentType("Story"); setComposeOpen(true) }}>
           <span className="story-ring story-self"><span className="story-avatar">{initials(user.name)}</span><PlusIcon className="story-plus" /></span>
           <small>Your story</small>
         </button>
         {storyAuthors.filter((author) => author.id !== String(user.id)).map((author) => (
-          <button
-            type="button"
-            className="story"
-            key={author.id}
-            onClick={() => setFilterUser((current) => (current === author.id ? null : author.id))}
-          >
-            <span className={`story-ring${filterUser === author.id ? ' selected' : ''}`}><span className="story-avatar">{initials(author.name)}</span></span>
-            <small>{author.name.split(' ')[0]}</small>
+          <button type="button" className="story" key={author.id} onClick={() => setActiveStory(author.stories[0])}>
+            <span className="story-ring"><span className="story-avatar">{initials(author.name)}</span></span>
+            <small>{author.id === String(user.id) ? 'Your story' : author.name.split(' ')[0]}</small>
           </button>
         ))}
       </section>
 
       <section className="content-card feed-composer-prompt">
         <span className="story-avatar">{initials(user.name)}</span>
-        <button type="button" onClick={() => setComposeOpen(true)}>Share something with the community, {user.name.split(' ')[0]}…</button>
-        <button type="button" className="prompt-camera" aria-label="Add a photo or video" title="Add a photo or video" onClick={() => setComposeOpen(true)}>
+        <button type="button" onClick={() => { setContentType("Post"); setComposeOpen(true) }}>Share something with the community, {user.name.split(' ')[0]}…</button>
+        <button type="button" className="prompt-camera" aria-label="Add a photo or video" title="Add a photo or video" onClick={() => { setContentType("Post"); setComposeOpen(true) }}>
           <CameraIcon />
         </button>
       </section>
@@ -332,8 +338,16 @@ export default function Community() {
         onClose={() => setChat(null)}
       />
 
-      <Modal open={composeOpen} title="Create a Post" subtitle="Share a photo, video or update with the PINTU community." onClose={closeComposer} className="compose-modal">
+      <Modal open={Boolean(activeStory)} title={activeStory?.author ? `${activeStory.author}'s Story` : 'Story'} subtitle={activeStory?.expiresAt ? `Expires ${new Date(activeStory.expiresAt).toLocaleString()}` : ''} onClose={() => setActiveStory(null)}>
+        {activeStory?.media?.map((item, index) => item.type === 'video'
+          ? <video key={index} src={item.url} controls autoPlay style={{ width: '100%', maxHeight: 480 }} />
+          : <img key={index} src={item.url} alt="Story" style={{ width: '100%', maxHeight: 480, objectFit: 'contain' }} />)}
+        {activeStory?.content && <p>{activeStory.content}</p>}
+      </Modal>
+
+      <Modal open={composeOpen} title={`Create a ${contentType}`} subtitle={contentType === "Story" ? "Stories disappear automatically after 24 hours." : "Posts stay on your profile until you delete them."} onClose={closeComposer} className="compose-modal">
         <form onSubmit={submitPost} className="stacked-form">
+          <label htmlFor="community-content-type">Share as</label><select id="community-content-type" value={contentType} onChange={(e) => { setContentType(e.target.value); setMedia([]) }}><option>Post</option><option>Story</option></select>
           <div className="compose-author">
             <span className="story-avatar">{initials(user.name)}</span>
             <div><strong>{user.name}</strong><small>{user.role || 'Tenant'}</small></div>
@@ -366,11 +380,11 @@ export default function Community() {
               ))}
             </div>
           )}
-          <small className="image-note">Up to 4 images (3 MB each) or 1 video (8 MB).</small>
+          <small className="image-note">{contentType === 'Story' ? 'One image (3 MB) or one video (8 MB). Stories disappear after 24 hours.' : 'Up to 4 images (3 MB each) or 1 video (8 MB). Posts remain until deleted.'}</small>
           {composeError && <p className="form-message error" role="alert">{composeError}</p>}
           <div className="modal-actions">
             <button type="button" className="secondary-btn" onClick={closeComposer}>Cancel</button>
-            <button type="submit" className="primary-btn" disabled={posting}>{posting ? 'Sharing…' : 'Share Post'}</button>
+            <button type="submit" className="primary-btn" disabled={posting}>{posting ? 'Sharing…' : `Share ${contentType}`}</button>
           </div>
         </form>
       </Modal>

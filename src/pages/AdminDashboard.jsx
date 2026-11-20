@@ -4,6 +4,7 @@ import Modal from '../components/Modal'
 import { useAuth } from '../context/useAuth'
 import { adminUpdateUser, deleteUser, getUsers } from '../lib/auth'
 import { getAllTransactions } from '../lib/tiers'
+import { createAnnouncement, deleteAnnouncement, getAnnouncements } from '../lib/announcements'
 
 const ROLES = ['Admin', 'Tenant', 'Landlord', 'Property Manager']
 const emptyForm = { id: '', name: '', email: '', phone: '', role: 'Tenant' }
@@ -13,6 +14,8 @@ export default function AdminDashboard() {
   const navigate = useNavigate()
   const [users, setUsers] = useState([])
   const [payments, setPayments] = useState([])
+  const [announcements, setAnnouncements] = useState([])
+  const [announcementForm, setAnnouncementForm] = useState({ title: '', content: '', audience: 'Everyone' })
   const [loadError, setLoadError] = useState('')
   const [search, setSearch] = useState('')
   const [roleFilter, setRoleFilter] = useState('All')
@@ -21,11 +24,12 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     let active = true
-    Promise.all([getUsers(), getAllTransactions()])
-      .then(([nextUsers, nextPayments]) => {
+    Promise.all([getUsers(), getAllTransactions(), getAnnouncements()])
+      .then(([nextUsers, nextPayments, nextAnnouncements]) => {
         if (!active) return
         setUsers(nextUsers)
         setPayments(nextPayments)
+        setAnnouncements(nextAnnouncements)
       })
       .catch((err) => { if (active) setLoadError(err.message) })
     return () => { active = false }
@@ -82,6 +86,24 @@ export default function AdminDashboard() {
     return undefined
   }
 
+  const publishAnnouncement = async (event) => {
+    event.preventDefault()
+    try {
+      const created = await createAnnouncement(announcementForm)
+      setAnnouncements((items) => [created, ...items])
+      setAnnouncementForm({ title: '', content: '', audience: 'Everyone' })
+      setLoadError('')
+    } catch (err) { setLoadError(err.message || 'Unable to publish announcement.') }
+  }
+
+  const removeAnnouncement = async (id) => {
+    if (!window.confirm('Delete this announcement?')) return
+    try {
+      await deleteAnnouncement(id)
+      setAnnouncements((items) => items.filter((item) => item._id !== id))
+    } catch (err) { setLoadError(err.message || 'Unable to delete announcement.') }
+  }
+
   const logout = async () => {
     if (!window.confirm('Are you sure you want to logout?')) return
     await signOut()
@@ -97,6 +119,8 @@ export default function AdminDashboard() {
           <a href="#overview" className="menu-item active"><span>📊</span> Overview</a>
           <a href="#users" className="menu-item"><span>👥</span> User Management</a>
           <a href="#membership" className="menu-item"><span>🏠</span> Membership Payments</a>
+          <a href="#announcements" className="menu-item"><span>📢</span> Announcements</a>
+          <a href="/maintenance" className="menu-item"><span>🛠️</span> Maintenance Requests</a>
         </div>
         <div className="sidebar-bottom">
           <button type="button" className="menu-item nav-action" onClick={logout}><span>🚪</span> Logout</button>
@@ -180,6 +204,28 @@ export default function AdminDashboard() {
                 </table>
               </div>
             )}
+          </section>
+
+          <section className="admin-section" id="announcements">
+            <div className="section-heading"><div><h2>Announcement Postings</h2><p>Create updates for everyone or a selected user role.</p></div></div>
+            <form className="content-card stacked-form" onSubmit={publishAnnouncement}>
+              <label htmlFor="announcement-title">Announcement title</label>
+              <input id="announcement-title" required maxLength="120" value={announcementForm.title} onChange={(e) => setAnnouncementForm({ ...announcementForm, title: e.target.value })} />
+              <label htmlFor="announcement-content">Announcement details</label>
+              <textarea id="announcement-content" required maxLength="3000" rows="4" value={announcementForm.content} onChange={(e) => setAnnouncementForm({ ...announcementForm, content: e.target.value })} />
+              <label htmlFor="announcement-audience">Audience</label>
+              <select id="announcement-audience" value={announcementForm.audience} onChange={(e) => setAnnouncementForm({ ...announcementForm, audience: e.target.value })}>
+                {['Everyone', 'Tenants', 'Landlords', 'Property Managers'].map((v) => <option key={v}>{v}</option>)}
+              </select>
+              <button className="primary-btn" type="submit">Publish Announcement</button>
+            </form>
+            <div className="community-feed" style={{ marginTop: 16 }}>
+              {announcements.map((item) => <article className="content-card" key={item._id}>
+                <div className="section-heading"><div><h3>{item.title}</h3><p>{item.audience} · {new Date(item.createdAt).toLocaleString()}</p></div><button type="button" className="delete-btn" onClick={() => removeAnnouncement(item._id)}>Delete</button></div>
+                <p style={{ whiteSpace: 'pre-wrap' }}>{item.content}</p>
+              </article>)}
+              {announcements.length === 0 && <p className="muted">No announcements published yet.</p>}
+            </div>
           </section>
         </div>
       </main>
