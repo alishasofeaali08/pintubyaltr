@@ -4,6 +4,8 @@ import PageHeading from '../components/PageHeading'
 import UserRating from '../components/UserRating'
 import { useAuth } from '../context/useAuth'
 import { TIERS, TIER_ORDER, addFunds, getWallet, upgradeTier } from '../lib/tiers'
+import { getPaymentSettings } from '../lib/paymentMethods'
+import { Link } from 'react-router-dom'
 
 export default function Dashboard() {
   const { user, updateProfile, refresh } = useAuth()
@@ -21,6 +23,8 @@ export default function Dashboard() {
   const [topUp, setTopUp] = useState('')
   const [transactions, setTransactions] = useState([])
   const [tierFeedback, setTierFeedback] = useState('')
+  const [paymentSettings] = useState(() => getPaymentSettings(user.id))
+  const [paymentMethod, setPaymentMethod] = useState(paymentSettings.preferred || paymentSettings.enabled[0] || '')
 
   useEffect(() => {
     let active = true
@@ -74,7 +78,7 @@ export default function Dashboard() {
     event.preventDefault()
     const amount = Number(topUp)
     try {
-      const result = await addFunds(amount)
+      const result = await addFunds(amount, paymentMethod)
       setTopUp('')
       setTierFeedback(`RM${amount.toFixed(2)} added to your wallet.`)
       setBalance(result.balance)
@@ -136,9 +140,12 @@ export default function Dashboard() {
         <section className="content-card wallet-card">
           <div className="section-heading">
             <div><h2>My Wallet</h2><p>Demo balance for membership payments.</p></div>
+            <Link className="secondary-btn" to="/payment-management">Payment settings</Link>
           </div>
           <div className="wallet-balance">RM{balance.toFixed(2)}</div>
+          <p className="muted">Configured methods: {paymentSettings.enabled.length ? paymentSettings.enabled.join(', ') : 'None yet'}</p>
           <form className="topup-form" onSubmit={handleTopUp}>
+            {paymentSettings.enabled.length > 0 && <select aria-label="Payment method" value={paymentMethod} onChange={(event) => setPaymentMethod(event.target.value)}>{paymentSettings.enabled.map((method) => <option key={method}>{method}</option>)}</select>}
             <input type="number" min="1" max="1000" step="0.01" value={topUp} onChange={(event) => setTopUp(event.target.value)} placeholder="Amount (RM)" aria-label="Top-up amount" />
             <button type="submit" className="secondary-btn">Add Funds</button>
           </form>
@@ -153,6 +160,7 @@ export default function Dashboard() {
                   <div>
                     <strong>{item.type === 'top-up' ? 'Wallet top-up' : `${item.tier} membership`}</strong>
                     <small>{new Date(item.date).toLocaleString()}</small>
+                    {item.method && <small>Method: {item.method}</small>}
                   </div>
                   <span className={item.type === 'top-up' ? 'amount-plus' : 'amount-minus'}>
                     {item.type === 'top-up' ? '+' : '-'}RM{Number(item.amount).toFixed(2)}

@@ -16,6 +16,7 @@ import walletRoutes from './routes/wallet.js'
 import maintenanceRoutes from './routes/maintenance.js'
 import announcementRoutes from './routes/announcements.js'
 import storyRoutes from './routes/stories.js'
+import rentalRoutes from './routes/rentals.js'
 
 export function createApp() {
   const app = express()
@@ -47,6 +48,7 @@ export function createApp() {
   app.use('/api/maintenance', maintenanceRoutes)
   app.use('/api/announcements', announcementRoutes)
   app.use('/api/stories', storyRoutes)
+  app.use('/api/rentals', rentalRoutes)
   app.use('/api', apiNotFound)
 
   // In production one process serves both the API and the built React app.

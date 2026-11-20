@@ -9,6 +9,7 @@ const transactionSchema = new Schema(
     type: { type: String, enum: ['top-up', 'upgrade'], required: true },
     tier: { type: String, default: null },
     amount: { type: Number, required: true },
+    method: { type: String, default: '' },
     date: { type: Date, default: Date.now },
   },
   { versionKey: false },

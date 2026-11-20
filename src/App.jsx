@@ -16,6 +16,8 @@ import OurMission from './pages/OurMission'
 import Signup from './pages/Signup'
 import MaintenanceRequests from './pages/MaintenanceRequests'
 import Announcements from './pages/Announcements'
+import RentalManagement from './pages/RentalManagement'
+import PaymentManagement from './pages/PaymentManagement'
 
 function NotFound() {
   return (
@@ -46,6 +48,8 @@ export default function App() {
         <Route path="/my-listings" element={<RequireAuth><MyListings /></RequireAuth>} />
         <Route path="/maintenance" element={<RequireAuth><MaintenanceRequests /></RequireAuth>} />
         <Route path="/announcements" element={<RequireAuth><Announcements /></RequireAuth>} />
+        <Route path="/rental-management" element={<RequireAuth><RentalManagement /></RequireAuth>} />
+        <Route path="/payment-management" element={<RequireAuth><PaymentManagement /></RequireAuth>} />
         <Route path="/admin" element={<RequireAuth adminOnly><AdminDashboard /></RequireAuth>} />
         <Route path="*" element={<NotFound />} />
       </Route>

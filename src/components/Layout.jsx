@@ -15,8 +15,8 @@ const currentYear = new Date().getFullYear()
 
 const serviceLinks = [
   { label: 'Property Listings', to: '/marketplace' },
-  { label: 'Rental Management' },
-  { label: 'Payment Management' },
+  { label: 'Rental Management', to: '/rental-management' },
+  { label: 'Payment Management', to: '/payment-management' },
   { label: 'Maintenance Requests', to: '/maintenance' },
 ]
 
@@ -68,7 +68,7 @@ export default function Layout() {
   }
 
   const isHome = location.pathname === '/' || location.pathname === '/community'
-  const isServices = ['/marketplace', '/maintenance'].includes(location.pathname)
+  const isServices = ['/marketplace', '/maintenance', '/rental-management', '/payment-management'].includes(location.pathname)
   const isProfile = ['/dashboard', '/admin'].includes(location.pathname)
 
   return (
@@ -89,9 +89,9 @@ export default function Layout() {
                 <CheckIcon className="popover-check" />
               </NavLink>
             ) : (
-              <button type="button" className="popover-item disabled" key={label} disabled role="menuitem">
-                {label}<span className="popover-badge">Soon</span>
-              </button>
+              <NavLink key={label} to={to} className="popover-item" onClick={() => setActiveMenu(null)} role="menuitem">
+                {label}<CheckIcon className="popover-check" />
+              </NavLink>
             )))}
           </div>
         )}

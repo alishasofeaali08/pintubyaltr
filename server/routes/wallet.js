@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { User, TIER_NAMES, publicUser } from '../models/User.js'
 import { Transaction } from '../models/Transaction.js'
 import { requireAdmin, requireAuth } from '../middleware/auth.js'
+import { PAYMENT_METHODS } from './paymentMethods.js'
 
 const router = Router()
 const TIER_PRICES = { Bronze: 0, Silver: 19.9, Gold: 39.9, Platinum: 69.9 }
@@ -35,6 +36,7 @@ router.post('/topup', requireAuth, async (req, res, next) => {
       userName: user.username,
       type: 'top-up',
       amount,
+      method: PAYMENT_METHODS.includes(req.body?.method) ? req.body.method : 'Dashboard wallet top-up',
     })
     return res.json({ balance: user.wallet })
   } catch (error) {

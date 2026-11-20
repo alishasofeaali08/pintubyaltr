@@ -58,8 +58,8 @@ export async function getWallet(limit = 5) {
   }
 }
 
-export async function addFunds(amount) {
-  const { balance } = await api.post('/wallet/topup', { amount })
+export async function addFunds(amount, method) {
+  const { balance } = await api.post('/wallet/topup', { amount, method })
   return { ok: true, balance }
 }
 
